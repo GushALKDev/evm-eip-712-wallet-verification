@@ -1,0 +1,22 @@
+{
+  "name": "eip-712",
+  "version": "1.0.0",
+  "description": "Simple frontend to verify wallet ownership using EIP-712 signatures",
+  "main": "index.js",
+  "scripts": {
+    "build": "node src/build.js",
+    "start_client": "yarn build && http-server src",
+    "start_server": "node src/server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "ethers": "^5.7.2",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "author": "",
+  "license": "MIT"
+}
