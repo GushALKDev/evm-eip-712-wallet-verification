@@ -97,10 +97,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify({
                         signature,
                         address: account,
-                        timestamp,
+                        timestamp: timestamp,
                         chainId: chainId,
-                        action,
-                        amount
+                        action: action,
+                        amount: amount
                     })
                 });
                 
