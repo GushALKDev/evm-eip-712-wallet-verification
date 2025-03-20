@@ -31,18 +31,25 @@ document.addEventListener('DOMContentLoaded', () => {
             // Get the chainId
             const chainId = await window.ethereum.request({ method: 'eth_chainId' });
 
+            // Action & amount
+            const action = "withdraw";
+            const amount = "1000";
+
             // Create EIP-712 data structure
             const domain = {
                 name: 'WalletVerifier',
                 version: '1',
-                chainId: parseInt(chainId, 16),
+                chainId: chainId,
                 verifyingContract: '0x0000000000000000000000000000000000000000' // Placeholder contract address
             };
 
             const types = {
                 Verification: [
                     { name: 'wallet', type: 'address' },
-                    { name: 'timestamp', type: 'uint256' }
+                    { name: 'timestamp', type: 'uint256' },
+                    { name: 'chainId', type: 'uint256' },
+                    { name: 'action', type: 'string' },
+                    { name: 'amount', type: 'string' }
                 ]
             };
 
@@ -51,7 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const value = {
                 wallet: account,
-                timestamp: timestamp
+                timestamp: timestamp,
+                chainId: chainId,
+                action: action,
+                amount: amount
             };
 
             console.log('Ethers loaded:', typeof ethers);
@@ -88,7 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         signature,
                         address: account,
                         timestamp,
-                        chainId: parseInt(chainId, 16)
+                        chainId: chainId,
+                        action,
+                        amount
                     })
                 });
                 

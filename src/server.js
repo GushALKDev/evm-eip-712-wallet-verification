@@ -20,27 +20,37 @@ app.post('/verify-signature', async (req, res) => {
       signature, 
       address, 
       timestamp, 
-      chainId 
+      chainId,
+      action,
+      amount
     } = req.body;
+
+    console.log("Request body", req.body);
 
     // Recreate the same EIP-712 data that was used for signing
     const domain = {
       name: 'WalletVerifier',
       version: '1',
-      chainId: parseInt(chainId, 10),
+      chainId: chainId,
       verifyingContract: '0x0000000000000000000000000000000000000000'
     };
 
     const types = {
       Verification: [
         { name: 'wallet', type: 'address' },
-        { name: 'timestamp', type: 'uint256' }
+        { name: 'timestamp', type: 'uint256' },
+        { name: 'chainId', type: 'uint256' },
+        { name: 'action', type: 'string' },
+        { name: 'amount', type: 'string' }
       ]
     };
 
     const value = {
       wallet: address,
-      timestamp: parseInt(timestamp, 10)
+      timestamp: parseInt(timestamp, 10),
+      chainId: chainId,
+      action: action,
+      amount:amount
     };
 
     // Check if signature hasn't expired (optional)
